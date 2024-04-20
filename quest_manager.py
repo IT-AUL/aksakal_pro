@@ -1,5 +1,7 @@
 import json
 
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+
 from choice import Choice
 from quest import Quest
 
@@ -25,7 +27,18 @@ class QuestManager:
         self.quests = load_quests(quests_file)
         self.current_quest_id = "welcome_quest"
         self.current_quest = self.quests[self.current_quest_id]
+        self.current_choices = ["0", "1"]
 
     def next_quest(self):
         self.current_quest = self.quests[self.current_quest_id]
         return self.current_quest.description, self.current_quest.choices
+
+    def make_choice(self):
+        quest_description, choices = self.next_quest()
+        builder = InlineKeyboardBuilder()
+        for choice in choices:
+            print(choice.choice_id)
+            builder.button(text=choice.text, callback_data=choice.choice_id)
+        builder.adjust(len(choices))
+        self.current_choices = [choice.choice_id for choice in choices]
+        return quest_description, builder.as_markup()
