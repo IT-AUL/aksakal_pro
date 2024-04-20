@@ -1,4 +1,5 @@
 import json
+import re
 
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
@@ -23,11 +24,12 @@ def load_quests(quests_file):
 
 
 class QuestManager:
-    def __init__(self, quests_file):
+    def __init__(self, quests_file='quest.json', player=None):
         self.quests = load_quests(quests_file)
-        self.current_quest_id = "welcome_quest"
+        self.current_quest_id = "q0"
         self.current_quest = self.quests[self.current_quest_id]
-        self.current_choices = ["0", "1"]
+        self.current_choices = [choice.choice_id for choice in self.current_quest.choices]
+        self.player = player
 
     def next_quest(self):
         self.current_quest = self.quests[self.current_quest_id]
@@ -35,10 +37,20 @@ class QuestManager:
 
     def make_choice(self):
         quest_description, choices = self.next_quest()
+        quest_description = self.replace_variables(quest_description)
         builder = InlineKeyboardBuilder()
         for choice in choices:
-            print(choice.choice_id)
+            choice.text = self.replace_variables(choice.text)
             builder.button(text=choice.text, callback_data=choice.choice_id)
-        builder.adjust(len(choices))
+        builder.adjust(1, len(choices))
         self.current_choices = [choice.choice_id for choice in choices]
         return quest_description, builder.as_markup()
+
+    def replace_variables(self, string):
+        pattern = r'\$(\w+)'
+        matches = re.findall(pattern, string)
+        for match in matches:
+            if hasattr(self.player, match):
+                value = str(getattr(self.player, match))
+                string = string.replace(f'${match}', value)
+        return string

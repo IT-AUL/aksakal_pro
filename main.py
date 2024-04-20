@@ -9,10 +9,12 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
+from player import Player
 from quest_manager import QuestManager
 
 dp = Dispatcher()
-quest_manager = QuestManager('quest.json')
+player = Player()
+quest_manager = QuestManager(player=player)
 
 
 @dp.message(CommandStart())
