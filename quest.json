@@ -1,0 +1,40 @@
+[
+  {
+    "quest_id": "welcome_quest",
+    "description": "Очнись, эй, очнись! Ты как, как зовут?",
+    "choices": [
+      {
+        "choice_id": 0,
+        "to_quest": "take_items",
+        "text": "Я name. Иду из Болгар в Казань."
+      },
+      {
+        "choice_id": 1,
+        "to_quest": "second",
+        "text": " клоун"
+      }
+    ]
+  },
+  {
+    "quest_id": "take_items",
+    "description": "Да ты видно совсем без сил, $name. На вот, подкрепись.",
+    "choices": [
+      {
+        "choice_id": 1,
+        "to_quest": "go_to_kremlin",
+        "text": "Взять еду."
+      }
+    ]
+  },
+  {
+    "quest_id": "second",
+    "description": "Kva",
+    "choices": [
+      {
+        "choice_id": 1,
+        "to_quest": "go_to_kremlin",
+        "text": "RRRR"
+      }
+    ]
+  }
+]
