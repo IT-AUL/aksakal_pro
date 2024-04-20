@@ -30,9 +30,11 @@ async def execute_choice(callback: types.CallbackQuery):
         if choice.choice_id == callback.data:
             quest_manager.current_quest_id = choice.to_quest
             quest_description, markup = quest_manager.make_choice()
+            player.apply_changes(**choice.result)
             await callback.message.edit_reply_markup(reply_markup=None)
             await callback.message.answer(text=choice.text)
             await callback.message.answer(text=quest_description, reply_markup=markup)
+            print(player.health, player.items)
             break
 
 

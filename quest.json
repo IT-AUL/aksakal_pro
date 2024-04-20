@@ -6,12 +6,21 @@
       {
         "choice_id": "c0",
         "to_quest": "q1",
-        "text": "Я $name."
+        "text": "Я $name.",
+        "result": {
+          "health": 10
+        }
       },
       {
         "choice_id": "c1",
         "to_quest": "q2",
-        "text": "*-Э14?%@#"
+        "text": "*-Э14?%@#",
+        "result": {
+          "items": [
+            "apple",
+            "sword"
+          ]
+        }
       }
     ]
   },
@@ -22,7 +31,8 @@
       {
         "choice_id": "c0",
         "to_quest": "q2",
-        "text": "Ну вот и поговорили"
+        "text": "Ну вот и поговорили",
+        "result": {}
       }
     ]
   },
@@ -33,7 +43,8 @@
       {
         "choice_id": "c0",
         "to_quest": "-1",
-        "text": "Пока"
+        "text": "Пока",
+        "result": {}
       }
     ]
   }

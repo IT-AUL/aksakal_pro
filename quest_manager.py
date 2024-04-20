@@ -18,7 +18,8 @@ def load_quests(quests_file):
                 choice_id = str(choice_json['choice_id'])
                 to_quest = str(choice_json['to_quest'])
                 text = str(choice_json['text'])
-                choice.append(Choice(choice_id, to_quest, text))
+                result = dict(choice_json['result'])
+                choice.append(Choice(choice_id, to_quest, text, result))
             quests[quest_id] = (Quest(quest_id, description, choice))
         return quests
 
