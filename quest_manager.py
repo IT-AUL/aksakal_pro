@@ -8,6 +8,11 @@ from quest import Quest
 
 
 def load_quests(quests_file):
+    """
+    Load quests from *quest_file* file and return them as a list
+    :param quests_file: Quests file path
+    :return: List of quests
+    """
     with open(quests_file, encoding='utf-8') as file:
         quests = dict()
         for quest_json in json.load(file):
