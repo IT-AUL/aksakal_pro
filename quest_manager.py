@@ -41,12 +41,12 @@ class QuestManager:
         self.current_choices = [choice.choice_id for choice in self.current_quest.choices]
         self.player = player
 
-    def next_quest(self):
+    def get_current_quest(self):
         self.current_quest = self.quests[self.current_quest_id]
         return self.current_quest.description, self.current_quest.choices
 
     def make_choice(self):
-        quest_description, choices = self.next_quest()
+        quest_description, choices = self.get_current_quest()
         quest_description = self.replace_variables(quest_description)
         builder = InlineKeyboardBuilder()
         for choice in choices:
