@@ -8,6 +8,7 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
+from dialogue import Translate
 from npc_manager import ask_question
 from player import Player
 from quest_manager import QuestManager
@@ -17,6 +18,7 @@ dp = Dispatcher()
 players = {}
 quest_managers = {}
 asked_questions = {}
+translate = Translate()
 
 
 @dp.message(CommandStart())
@@ -34,7 +36,9 @@ async def start_quest(message: Message) -> None:
 async def answer_question(message: Message):
     global asked_questions
     if asked_questions[message.from_user.id]:
-        answer = ask_question(message.text)
+        translation = translate.tat2rus(message.text)
+        print(translation)
+        answer = ask_question(translation)
         await message.answer(text=answer)
 
 
